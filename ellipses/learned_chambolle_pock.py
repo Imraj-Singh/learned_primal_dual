@@ -53,7 +53,6 @@ def generate_data(validation=False):
             phantom = random_phantom(space)
         data = operator(phantom)
         noisy_data = data + odl.phantom.white_noise(operator.range) * np.mean(np.abs(data)) * 0.05
-
         x_true_arr[i, ..., 0] = phantom
         y_arr[i, ..., 0] = noisy_data
 

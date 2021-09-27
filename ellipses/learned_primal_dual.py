@@ -82,7 +82,7 @@ with tf.name_scope('tomography'):
         with tf.variable_scope('dual_iterate_{}'.format(i)):
             evalop = odl_op_layer(primal[..., 1:2])
             update = tf.concat([dual, evalop, y_rt], axis=-1)
-
+            # THE NETWORK BELOW
             update = prelu(apply_conv(update), name='prelu_1')
             update = prelu(apply_conv(update), name='prelu_2')
             update = apply_conv(update, filters=n_dual)
@@ -91,7 +91,7 @@ with tf.name_scope('tomography'):
         with tf.variable_scope('primal_iterate_{}'.format(i)):
             evalop = odl_op_layer_adjoint(dual[..., 0:1])
             update = tf.concat([primal, evalop], axis=-1)
-
+            # THE NETWORK BELOW
             update = prelu(apply_conv(update), name='prelu_1')
             update = prelu(apply_conv(update), name='prelu_2')
             update = apply_conv(update, filters=n_primal)
